@@ -23,7 +23,7 @@
             width: 50px;
             height: 50px;
             border: 5px solid #e5e7eb; /* light gray */
-            border-top-color: #3b82f6; /* blue */
+            border-top-color: var(--primary-color); /* LOGO MAVİSİ */
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -36,7 +36,7 @@
             stroke-dashoffset: 166;
             stroke-width: 3;
             stroke-miterlimit: 10;
-            stroke: #34d399; /* green */
+            stroke: var(--success-color); /* green */
             fill: none;
             animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
@@ -45,35 +45,76 @@
             stroke-dasharray: 48;
             stroke-dashoffset: 48;
             stroke-width: 3;
-            stroke: #34d399; /* green */
+            stroke: var(--success-color); /* green */
             fill: none;
             animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
         }
         @keyframes stroke {
             100% { stroke-dashoffset: 0; }
         }
+
+        /* LOGO RENKLERİ VE KULLANIMI */
+        :root {
+            --primary-color: #1C375C; /* Koyu lacivert */
+            --secondary-color: #88CEF6; /* Açık mavi */
+            --success-color: #34d399; /* Onay yeşili (değişmedi) */
+        }
+
+        .bg-primary { background-color: var(--primary-color); }
+        .text-primary { color: var(--primary-color); }
+        .border-primary { border-color: var(--primary-color); }
+
+        .bg-secondary { background-color: var(--secondary-color); }
+        .text-secondary { color: var(--secondary-color); }
+        .border-secondary { border-color: var(--secondary-color); }
+
+        /* Tailwind sınıflarını override etmek gerekiyorsa */
+        .bg-blue-600 { background-color: var(--primary-color); } /* Ana buton rengi */
+        .active\:bg-blue-700:active { background-color: var(--primary-color); } /* Buton basıldığında */
+        .text-blue-600 { color: var(--primary-color); } /* Ok ikonu vb. */
     </style>
 </head>
 <body class="bg-gray-100 h-screen overflow-hidden">
 
-    <!-- 1. BİLET SATIN ALMA EKRANI (Başlangıç) -->
-    <div id="booking-screen" class="flex flex-col h-full">
-        <!-- Başlık Çubuğu -->
-        <header class="bg-white shadow-sm w-full p-4 text-center sticky top-0 z-10">
-            <h1 class="text-xl font-bold text-gray-800">Uçuş Detayları</h1>
+    <!-- 1. BİLET SATIN ALMA EKRANI (Başlangıç) --><div id="booking-screen" class="flex flex-col h-full w-full"> <!-- w-full eklendi --><!-- Başlık Çubuğu --><header class="bg-primary text-white shadow-sm w-full p-4 text-center sticky top-0 z-10 flex items-center justify-center">
+            <svg class="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="var(--secondary-color)"/>
+                <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="url(#paint0_linear_1_2)"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M37.9622 30.6853L51.0116 22.5186L64.0611 30.6853L51.0116 38.852L37.9622 30.6853ZM51.0116 11.2384L76.5165 27.5309L51.0116 43.8235L25.5068 27.5309L51.0116 11.2384ZM65.8823 45.3129C69.0969 45.3129 71.7058 42.704 71.7058 39.4894C71.7058 36.2748 69.0969 33.6659 65.8823 33.6659C62.6677 33.6659 60.0588 36.2748 60.0588 39.4894C60.0588 42.704 62.6677 45.3129 65.8823 45.3129Z" fill="#1C375C"/>
+                <path d="M51.0116 22.5186L64.0611 30.6853L51.0116 38.852L37.9622 30.6853L51.0116 22.5186ZM51.0116 11.2384L76.5165 27.5309L51.0116 43.8235L25.5068 27.5309L51.0116 11.2384ZM65.8823 45.3129C69.0969 45.3129 71.7058 42.704 71.7058 39.4894C71.7058 36.2748 69.0969 33.6659 65.8823 33.6659C62.6677 33.6659 60.0588 36.2748 60.0588 39.4894C60.0588 42.704 62.6677 45.3129 65.8823 45.3129Z" fill="#1C375C"/>
+                <path d="M49.9998 34.0048L30.9388 45.4719L50.0004 56.9366L69.0615 45.4719L49.9998 34.0048ZM49.9998 21.0664L80.9392 39.4893L49.9998 57.9122L19.0604 39.4893L49.9998 21.0664ZM81.6508 59.954C86.1362 59.954 89.7029 56.3872 89.7029 51.9018C89.7029 47.4164 86.1362 43.8496 81.6508 43.8496C77.1654 43.8496 73.5986 47.4164 73.5986 51.9018C73.5986 56.3872 77.1654 59.954 81.6508 59.954Z" fill="#1C375C"/>
+                <path d="M49.9998 34.0048L30.9388 45.4719L50.0004 56.9366L69.0615 45.4719L49.9998 34.0048ZM49.9998 21.0664L80.9392 39.4893L49.9998 57.9122L19.0604 39.4893L49.9998 21.0664ZM81.6508 59.954C86.1362 59.954 89.7029 56.3872 89.7029 51.9018C89.7029 47.4164 86.1362 43.8496 81.6508 43.8496C77.1654 43.8496 73.5986 47.4164 73.5986 51.9018C73.5986 56.3872 77.1654 59.954 81.6508 59.954Z" fill="#1C375C"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+                <path d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+                <path d="M50 78.9336C38.0315 78.9336 28.2942 88.6709 28.2942 100L71.7058 100C71.7058 88.6709 61.9685 78.9336 50 78.9336Z" fill="#1C375C"/>
+                <path d="M50 78.9336C38.0315 78.9336 28.2942 88.6709 28.2942 100L71.7058 100C71.7058 88.6709 61.9685 78.9336 50 78.9336Z" fill="#1C375C"/>
+                <path d="M50 81.3341C39.3879 81.3341 30.7323 90.0076 30.7323 100L69.2677 100C69.2677 90.0076 60.6121 81.3341 50 81.3341Z" fill="#1C375C"/>
+                <path d="M50 81.3341C39.3879 81.3341 30.7323 90.0076 30.7323 100L69.2677 100C69.2677 90.0076 60.6121 81.3341 50 81.3341Z" fill="#1C375C"/>
+                <path d="M50 84.1504C37.0722 84.1504 26.5413 94.6813 26.5413 100L73.4587 100C73.4587 94.6813 62.9278 84.1504 50 84.1504Z" fill="#1C375C"/>
+                <path d="M50 84.1504C37.0722 84.1504 26.5413 94.6813 26.5413 100L73.4587 100C73.4587 94.6813 62.9278 84.1504 50 84.1504Z" fill="#1C375C"/>
+                <path d="M50 88.3986C32.8837 88.3986 18.2942 100 18.2942 100L81.7058 100C81.7058 100 67.1163 88.3986 50 88.3986Z" fill="#1C375C"/>
+                <path d="M50 88.3986C32.8837 88.3986 18.2942 100 18.2942 100L81.7058 100C81.7058 100 67.1163 88.3986 50 88.3986Z" fill="#1C375C"/>
+                <path d="M50 94.9458C25.0886 94.9458 4.7058 100 4.7058 100L95.2942 100C95.2942 100 74.9114 94.9458 50 94.9458Z" fill="#1C375C"/>
+                <path d="M50 94.9458C25.0886 94.9458 4.7058 100 4.7058 100L95.2942 100C95.2942 100 74.9114 94.9458 50 94.9458Z" fill="#1C375C"/>
+                <path d="M60.0588 39.4894C60.0588 36.2748 62.6677 33.6659 65.8823 33.6659C69.0969 33.6659 71.7058 36.2748 71.7058 39.4894C71.7058 42.704 69.0969 45.3129 65.8823 45.3129C62.6677 45.3129 60.0588 42.704 60.0588 39.4894Z" fill="#1C375C"/>
+                <path d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+                <defs>
+                    <linearGradient id="paint0_linear_1_2" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#88CEF6"/>
+                        <stop offset="1" stop-color="#1C375C"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1 class="text-xl font-bold">Uçuş Detayları</h1>
         </header>
 
-        <!-- Ana İçerik Alanı -->
-        <main class="flex-grow overflow-y-auto p-5">
-            <!-- Uçuş Bilgisi Kartı -->
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                <div class="flex items-center justify-between mb-4">
+        <!-- Ana İçerik Alanı --><main class="flex-grow overflow-y-auto p-4"> <!-- p-5 yerine p-4 --><!-- Uçuş Bilgisi Kartı --><div class="bg-white rounded-xl shadow-lg p-5 mb-4 mx-auto max-w-md"> <!-- p-6 yerine p-5, mb-6 yerine mb-4 --><div class="flex items-center justify-between mb-4">
                     <div>
                         <span class="block text-sm text-gray-500">Nereden</span>
                         <span class="text-3xl font-bold text-gray-900">RZV</span>
                         <span class="block text-gray-600">Rize-Artvin</span>
                     </div>
-                    <div class="text-blue-600">
+                    <div class="text-primary">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </div>
                     <div class="text-right">
@@ -94,45 +135,65 @@
                 </div>
             </div>
 
-            <!-- Fiyat Bilgisi Kartı -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex justify-between items-center">
+            <!-- Fiyat Bilgisi Kartı --><div class="bg-white rounded-xl shadow-lg p-5 mx-auto max-w-md"> <!-- p-6 yerine p-5 --><div class="flex justify-between items-center">
                     <span class="text-lg text-gray-600">Toplam Tutar</span>
-                    <span class="text-3xl font-bold text-blue-600">1.450,00 <span class="text-xl">TRY</span></span>
+                    <span class="text-3xl font-bold text-primary">1.450,00 <span class="text-xl">TRY</span></span>
                 </div>
             </div>
         </main>
 
-        <!-- Alt Buton Alanı (Sabit) -->
-        <footer class="bg-white p-5 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] w-full">
-            <button 
+        <!-- Alt Buton Alanı (Sabit) --><footer class="bg-white p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] w-full"> <!-- p-5 yerine p-4 --><button 
                 id="buy-button" 
                 onclick="buyTicket()"
-                class="w-full bg-blue-600 text-white text-lg font-bold py-4 rounded-lg shadow-lg transition-all duration-200 ease-in-out active:scale-[0.98] active:bg-blue-700">
-                Bileti Satın Al
+                class="w-full bg-primary text-white text-lg font-bold py-3 rounded-lg shadow-lg transition-all duration-200 ease-in-out active:scale-[0.98]"> <!-- py-4 yerine py-3 -->Bileti Satın Al
             </button>
         </footer>
     </div>
 
-    <!-- 2. YÜKLENİYOR EKRANI (Gizli) -->
-    <div id="loading-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-gray-100">
+    <!-- 2. YÜKLENİYOR EKRANI (Gizli) --><div id="loading-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-gray-100">
         <div class="loader"></div>
         <span class="mt-4 text-lg text-gray-600">İşlem Yapılıyor...</span>
     </div>
 
-    <!-- 3. ONAY EKRANI (Gizli) -->
-    <div id="confirmation-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-white p-6 text-center">
-        <div class="w-24 h-24 mb-6">
+    <!-- 3. ONAY EKRANI (Gizli) --><div id="confirmation-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-white p-4 text-center"> <!-- p-6 yerine p-4 --><div class="w-24 h-24 mb-6">
             <svg class="w-full h-full" viewBox="0 0 52 52">
                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
             </svg>
         </div>
+        <svg class="w-16 h-16 mb-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="var(--secondary-color)"/>
+            <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="url(#paint0_linear_1_2)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M37.9622 30.6853L51.0116 22.5186L64.0611 30.6853L51.0116 38.852L37.9622 30.6853ZM51.0116 11.2384L76.5165 27.5309L51.0116 43.8235L25.5068 27.5309L51.0116 11.2384ZM65.8823 45.3129C69.0969 45.3129 71.7058 42.704 71.7058 39.4894C71.7058 36.2748 69.0969 33.6659 65.8823 33.6659C62.6677 33.6659 60.0588 36.2748 60.0588 39.4894C60.0588 42.704 62.6677 45.3129 65.8823 45.3129Z" fill="#1C375C"/>
+            <path d="M51.0116 22.5186L64.0611 30.6853L51.0116 38.852L37.9622 30.6853L51.0116 22.5186ZM51.0116 11.2384L76.5165 27.5309L51.0116 43.8235L25.5068 27.5309L51.0116 11.2384ZM65.8823 45.3129C69.0969 45.3129 71.7058 42.704 71.7058 39.4894C71.7058 36.2748 69.0969 33.6659 65.8823 33.6659C62.6677 33.6659 60.0588 36.2748 60.0588 39.4894C60.0588 42.704 62.6677 45.3129 65.8823 45.3129Z" fill="#1C375C"/>
+            <path d="M49.9998 34.0048L30.9388 45.4719L50.0004 56.9366L69.0615 45.4719L49.9998 34.0048ZM49.9998 21.0664L80.9392 39.4893L49.9998 57.9122L19.0604 39.4893L49.9998 21.0664ZM81.6508 59.954C86.1362 59.954 89.7029 56.3872 89.7029 51.9018C89.7029 47.4164 86.1362 43.8496 81.6508 43.8496C77.1654 43.8496 73.5986 47.4164 73.5986 51.9018C73.5986 56.3872 77.1654 59.954 81.6508 59.954Z" fill="#1C375C"/>
+            <path d="M49.9998 34.0048L30.9388 45.4719L50.0004 56.9366L69.0615 45.4719L49.9998 34.0048ZM49.9998 21.0664L80.9392 39.4893L49.9998 57.9122L19.0604 39.4893L49.9998 21.0664ZM81.6508 59.954C86.1362 59.954 89.7029 56.3872 89.7029 51.9018C89.7029 47.4164 86.1362 43.8496 81.6508 43.8496C77.1654 43.8496 73.5986 47.4164 73.5986 51.9018C73.5986 56.3872 77.1654 59.954 81.6508 59.954Z" fill="#1C375C"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+            <path d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+            <path d="M50 78.9336C38.0315 78.9336 28.2942 88.6709 28.2942 100L71.7058 100C71.7058 88.6709 61.9685 78.9336 50 78.9336Z" fill="#1C375C"/>
+            <path d="M50 78.9336C38.0315 78.9336 28.2942 88.6709 28.2942 100L71.7058 100C71.7058 88.6709 61.9685 78.9336 50 78.9336Z" fill="#1C375C"/>
+            <path d="M50 81.3341C39.3879 81.3341 30.7323 90.0076 30.7323 100L69.2677 100C69.2677 90.0076 60.6121 81.3341 50 81.3341Z" fill="#1C375C"/>
+            <path d="M50 81.3341C39.3879 81.3341 30.7323 90.0076 30.7323 100L69.2677 100C69.2677 90.0076 60.6121 81.3341 50 81.3341Z" fill="#1C375C"/>
+            <path d="M50 84.1504C37.0722 84.1504 26.5413 94.6813 26.5413 100L73.4587 100C73.4587 94.6813 62.9278 84.1504 50 84.1504Z" fill="#1C375C"/>
+            <path d="M50 84.1504C37.0722 84.1504 26.5413 94.6813 26.5413 100L73.4587 100C73.4587 94.6813 62.9278 84.1504 50 84.1504Z" fill="#1C375C"/>
+            <path d="M50 88.3986C32.8837 88.3986 18.2942 100 18.2942 100L81.7058 100C81.7058 100 67.1163 88.3986 50 88.3986Z" fill="#1C375C"/>
+            <path d="M50 88.3986C32.8837 88.3986 18.2942 100 18.2942 100L81.7058 100C81.7058 100 67.1163 88.3986 50 88.3986Z" fill="#1C375C"/>
+            <path d="M50 94.9458C25.0886 94.9458 4.7058 100 4.7058 100L95.2942 100C95.2942 100 74.9114 94.9458 50 94.9458Z" fill="#1C375C"/>
+            <path d="M50 94.9458C25.0886 94.9458 4.7058 100 4.7058 100L95.2942 100C95.2942 100 74.9114 94.9458 50 94.9458Z" fill="#1C375C"/>
+            <path d="M60.0588 39.4894C60.0588 36.2748 62.6677 33.6659 65.8823 33.6659C69.0969 33.6659 71.7058 36.2748 71.7058 39.4894C71.7058 42.704 69.0969 45.3129 65.8823 45.3129C62.6677 45.3129 60.0588 42.704 60.0588 39.4894Z" fill="#1C375C"/>
+            <path d="M34.1177 54.6871C30.9031 54.6871 28.2942 57.296 28.2942 60.5106C28.2942 63.7252 30.9031 66.3341 34.1177 66.3341C37.3323 66.3341 39.9412 63.7252 39.9412 60.5106C39.9412 57.296 37.3323 54.6871 34.1177 54.6871Z" fill="#1C375C"/>
+            <defs>
+                <linearGradient id="paint0_linear_1_2" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#88CEF6"/>
+                    <stop offset="1" stop-color="#1C375C"/>
+                </linearGradient>
+            </defs>
+        </svg>
         <h2 class="text-3xl font-bold text-gray-800 mb-2">Biletiniz tamamlanmıştır</h2>
         <p class="text-lg text-gray-600 mb-8">Uçuş bilgilerinizi e-posta adresinize gönderdik. İyi yolculuklar dileriz.</p>
         <button 
             onclick="location.reload()"
-            class="w-full bg-gray-200 text-gray-800 text-lg font-bold py-4 rounded-lg transition-all duration-200 ease-in-out active:scale-[0.98] active:bg-gray-300">
+            class="w-full bg-gray-200 text-gray-800 text-lg font-bold py-3 rounded-lg transition-all duration-200 ease-in-out active:scale-[0.98]">
             Tamam
         </button>
     </div>
@@ -142,22 +203,14 @@
         const loadingScreen = document.getElementById('loading-screen');
         const confirmationScreen = document.getElementById('confirmation-screen');
 
-        // Senaryodaki o an: Güneş butona basar.
         function buyTicket() {
-            // 1. Bilet ekranını gizle
             bookingScreen.style.display = 'none';
-            
-            // 2. Yükleme ekranını göster (Tereddüt anı sonrası)
             loadingScreen.style.display = 'flex';
 
-            // 3. Kısa bir gecikmeden sonra (işlem yapılıyor hissi)
             setTimeout(() => {
-                // Yüklemeyi gizle
                 loadingScreen.style.display = 'none';
-                
-                // 4. Onay ekranını göster
                 confirmationScreen.style.display = 'flex';
-            }, 2000); // 2 saniyelik sahte yükleme süresi
+            }, 2000);
         }
     </script>
 
