@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0">
+    <title>Uçuş Rezervasyonu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tam ekran, kaydırmasız bir uygulama hissi */
+        html, body {
+            overscroll-behavior: none;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6; /* Açık gri arka plan */
+        }
+        /* iOS Home Bar alanı için alt boşluk */
+        body {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        /* Yükleme animasyonu */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e5e7eb; /* light gray */
+            border-top-color: #3b82f6; /* blue */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* Onay ikonu animasyonu */
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke-miterlimit: 10;
+            stroke: #34d399; /* green */
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 3;
+            stroke: #34d399; /* green */
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+        }
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen overflow-hidden">
+
+    <!-- 1. BİLET SATIN ALMA EKRANI (Başlangıç) -->
+    <div id="booking-screen" class="flex flex-col h-full">
+        <!-- Başlık Çubuğu -->
+        <header class="bg-white shadow-sm w-full p-4 text-center sticky top-0 z-10">
+            <h1 class="text-xl font-bold text-gray-800">Uçuş Detayları</h1>
+        </header>
+
+        <!-- Ana İçerik Alanı -->
+        <main class="flex-grow overflow-y-auto p-5">
+            <!-- Uçuş Bilgisi Kartı -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="block text-sm text-gray-500">Nereden</span>
+                        <span class="text-3xl font-bold text-gray-900">RZV</span>
+                        <span class="block text-gray-600">Rize-Artvin</span>
+                    </div>
+                    <div class="text-blue-600">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-sm text-gray-500">Nereye</span>
+                        <span class="text-3xl font-bold text-gray-900">SAW</span>
+                        <span class="block text-gray-600">İstanbul</span>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-500">Tarih</span>
+                        <span class="font-medium text-gray-800">17 Kasım 2025, Pts</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-500">Yolcu</span>
+                        <span class="font-medium text-gray-800">Güneş Y.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fiyat Bilgisi Kartı -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center">
+                    <span class="text-lg text-gray-600">Toplam Tutar</span>
+                    <span class="text-3xl font-bold text-blue-600">1.450,00 <span class="text-xl">TRY</span></span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Alt Buton Alanı (Sabit) -->
+        <footer class="bg-white p-5 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] w-full">
+            <button 
+                id="buy-button" 
+                onclick="buyTicket()"
+                class="w-full bg-blue-600 text-white text-lg font-bold py-4 rounded-lg shadow-lg transition-all duration-200 ease-in-out active:scale-[0.98] active:bg-blue-700">
+                Bileti Satın Al
+            </button>
+        </footer>
+    </div>
+
+    <!-- 2. YÜKLENİYOR EKRANI (Gizli) -->
+    <div id="loading-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-gray-100">
+        <div class="loader"></div>
+        <span class="mt-4 text-lg text-gray-600">İşlem Yapılıyor...</span>
+    </div>
+
+    <!-- 3. ONAY EKRANI (Gizli) -->
+    <div id="confirmation-screen" class="hidden h-full w-full flex flex-col items-center justify-center bg-white p-6 text-center">
+        <div class="w-24 h-24 mb-6">
+            <svg class="w-full h-full" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Biletiniz tamamlanmıştır</h2>
+        <p class="text-lg text-gray-600 mb-8">Uçuş bilgilerinizi e-posta adresinize gönderdik. İyi yolculuklar dileriz.</p>
+        <button 
+            onclick="location.reload()"
+            class="w-full bg-gray-200 text-gray-800 text-lg font-bold py-4 rounded-lg transition-all duration-200 ease-in-out active:scale-[0.98] active:bg-gray-300">
+            Tamam
+        </button>
+    </div>
+
+    <script>
+        const bookingScreen = document.getElementById('booking-screen');
+        const loadingScreen = document.getElementById('loading-screen');
+        const confirmationScreen = document.getElementById('confirmation-screen');
+
+        // Senaryodaki o an: Güneş butona basar.
+        function buyTicket() {
+            // 1. Bilet ekranını gizle
+            bookingScreen.style.display = 'none';
+            
+            // 2. Yükleme ekranını göster (Tereddüt anı sonrası)
+            loadingScreen.style.display = 'flex';
+
+            // 3. Kısa bir gecikmeden sonra (işlem yapılıyor hissi)
+            setTimeout(() => {
+                // Yüklemeyi gizle
+                loadingScreen.style.display = 'none';
+                
+                // 4. Onay ekranını göster
+                confirmationScreen.style.display = 'flex';
+            }, 2000); // 2 saniyelik sahte yükleme süresi
+        }
+    </script>
+
+</body>
+</html>
