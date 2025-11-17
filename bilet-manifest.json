@@ -1,0 +1,24 @@
+{
+  "name": "Uçuş Rezervasyon",
+  "short_name": "Uçuş",
+  "description": "Uçuş rezervasyon uygulaması.",
+  "start_url": "bilet.html",
+  "display": "standalone",
+  "background_color": "#1C375C",
+  "theme_color": "#1C375C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/88CEF6/1C375C?text=Bilet",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://placehold.co/512x512/88CEF6/1C375C?text=Bilet",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
