@@ -17,15 +17,14 @@
         /* Tam ekran, kaydırmasız bir uygulama hissi */
         html, body {
             overscroll-behavior: none;
-            height: 100%;
+            /* height: 100%; */ /* YENİ: Bu satır kaldırıldı */
             overflow: hidden;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f3f4f6; /* Açık gri arka plan */
         }
         /* iOS Home Bar alanı için alt boşluk */
         body {
-            /* YENİ: Bu satır kaldırıldı veya yorumlandı */
-            /* padding-bottom: env(safe-area-inset-bottom); */ 
+            /* padding-bottom: env(safe-area-inset-bottom); */ /* Bu satır doğru şekilde yorumlanmış, kalsın */
         }
         /* Yükleme animasyonu */
         .loader {
@@ -90,7 +89,9 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 overflow-hidden"> <div id="booking-screen" class="flex flex-col h-full w-full overflow-hidden">
+<body class="bg-gray-100 overflow-hidden h-dvh">
+
+    <div id="booking-screen" class="flex flex-col h-full w-full overflow-hidden">
         
         <header class="bg-white text-gray-800 shadow-sm w-full p-4 sticky top-0 z-10 flex items-center justify-between">
             <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
