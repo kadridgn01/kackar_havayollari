@@ -2,7 +2,7 @@
   "name": "Uçuş Rezervasyon",
   "short_name": "Uçuş",
   "description": "Uçuş rezervasyon uygulaması.",
-  "start_url": "bilet.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1C375C",
   "theme_color": "#1C375C",
