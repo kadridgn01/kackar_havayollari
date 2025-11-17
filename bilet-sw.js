@@ -1,5 +1,5 @@
 // Service Worker (bilet-sw.js)
-const CACHE_NAME = 'bilet-cache-v1';
+const CACHE_NAME = 'bilet-cache-v2';
 const urlsToCache = [
   'bilet.html',
   'bilet-manifest.json',
