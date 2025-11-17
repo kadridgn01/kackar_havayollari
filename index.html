@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0">
     <title>Uçuş Rezervasyonu</title>
+    
+    <!-- YENİ: PWA ve Mobil Cihaz Meta Etiketleri -->
+    <link rel="manifest" href="bilet-manifest.json">
+    <meta name="theme-color" content="#1C375C">
+    
+    <!-- Apple iOS için Ana Ekran Ayarları -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Uçuş">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/88CEF6/1C375C?text=Bilet">
+    <!-- Bitiş: PWA ve Mobil Cihaz Meta Etiketleri -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Tam ekran, kaydırmasız bir uygulama hissi */
@@ -77,6 +87,9 @@
 <body class="bg-gray-100 h-screen overflow-hidden">
 
     <!-- 1. BİLET SATIN ALMA EKRANI (Başlangıç) --><div id="booking-screen" class="flex flex-col h-full w-full"> <!-- w-full eklendi --><!-- Başlık Çubuğu --><header class="bg-primary text-white shadow-sm w-full p-4 text-center sticky top-0 z-10 flex items-center justify-center">
+            
+            <!-- LOGO KODU BURADAN BAŞLIYOR -->
+            <!-- Değiştirmek için bu <svg> bloğunu kaldırıp kendi logonuzun SVG kodunu yapıştırabilirsiniz -->
             <svg class="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="var(--secondary-color)"/>
                 <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="url(#paint0_linear_1_2)"/>
@@ -105,6 +118,8 @@
                     </linearGradient>
                 </defs>
             </svg>
+            <!-- LOGO KODU BURADA BİTİYOR -->
+            
             <h1 class="text-xl font-bold">Uçuş Detayları</h1>
         </header>
 
@@ -142,7 +157,10 @@
             </div>
         </main>
 
-        <!-- Alt Buton Alanı (Sabit) --><footer class="bg-white p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] w-full"> <!-- p-5 yerine p-4 --><button 
+        <!-- Alt Buton Alanı (Sabit) -->
+        <!-- YENİ: pb-[calc(1rem+env(safe-area-inset-bottom))] alt navigasyon çubuğu için güvenli alan ekler -->
+        <footer class="bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-4px_10px_rgba(0,0,0,0.05)] w-full"> <!-- p-5 yerine p-4 ve güvenli alan eklendi -->
+            <button 
                 id="buy-button" 
                 onclick="buyTicket()"
                 class="w-full bg-primary text-white text-lg font-bold py-3 rounded-lg shadow-lg transition-all duration-200 ease-in-out active:scale-[0.98]"> <!-- py-4 yerine py-3 -->Bileti Satın Al
@@ -161,6 +179,8 @@
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
             </svg>
         </div>
+        
+        <!-- LOGO KODU BURADAN BAŞLIYOR (Onay Ekranı) -->
         <svg class="w-16 h-16 mb-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="var(--secondary-color)"/>
             <path d="M50 0C22.386 0 0 22.386 0 50V90C0 95.5228 4.47715 100 10 100H90C95.5228 100 100 95.5228 100 90V50C100 22.386 77.614 0 50 0Z" fill="url(#paint0_linear_1_2)"/>
@@ -186,9 +206,9 @@
                 <linearGradient id="paint0_linear_1_2" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#88CEF6"/>
                     <stop offset="1" stop-color="#1C375C"/>
-                </linearGradient>
-            </defs>
-        </svg>
+            </svg>
+        <!-- LOGO KODU BURADA BİTİYOR (Onay Ekranı) -->
+        
         <h2 class="text-3xl font-bold text-gray-800 mb-2">Biletiniz tamamlanmıştır</h2>
         <p class="text-lg text-gray-600 mb-8">Uçuş bilgilerinizi e-posta adresinize gönderdik. İyi yolculuklar dileriz.</p>
         <button 
@@ -211,6 +231,19 @@
                 loadingScreen.style.display = 'none';
                 confirmationScreen.style.display = 'flex';
             }, 2000);
+        }
+        
+        // --- YENİ: Service Worker Kaydı ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('bilet-sw.js')
+                    .then(registration => {
+                        console.log('Bilet Service Worker başarıyla kaydedildi: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Bilet Service Worker kaydı başarısız: ', error);
+                    });
+            });
         }
     </script>
 
